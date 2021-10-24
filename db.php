@@ -2,12 +2,15 @@
 
 include ("txtDB/txt-db-api.php");
 
+// create_db() creates the database if it does not exist, and initializes it
+// with the Rendezvous schema. It returns true upon success, or false if there
+// was an error. Please note that it prints HTML to the page when called.
 function create_db()
 {
   echo '<br>Please wait...<br> Creating Database:<br>';
-  if (!file_exists(DB_DIR)) 		// no database directory found. Create it.
+  if (!file_exists(DB_DIR)) 		// No database directory found. Create it.
   {
-    $rc=mkdir (realpath('.').'/'.DB_DIR , 0700);
+    $rc=mkdir(realpath('.').'/'.DB_DIR , 0700);
     if(!$rc)
     {
       print_error_msg("Cannot create Database " . DB_DIR);
@@ -28,12 +31,18 @@ function create_db()
   return true;
 }
 
+// check_db() checks whether the database exists and has the appropriate file
+// permissions set. If the database does not exist, it is created. If the
+// permissions are wrong, an error is printed in the HTML. It returns true if
+// everything is okay, or false if a problem occurred.
 function check_db()
 {
-  //echo substr(sprintf('%o', fileperms(API_HOME_DIR)), -4);
-  if (!file_exists(DB_DIR . "mydb"))        // no database file found. Create the database.
-  {         //Database exists
-    create_db();
+  if (!file_exists(DB_DIR . "mydb"))        // No database file found. Create the database.
+  {
+    if (!create_db())
+    {
+      print_error_msg("Failed to create Database " . DB_DIR);
+    }
     $delay = "3"; // 3 second delay
     $url = "index.php"; // target of the redirect
     echo '<meta http-equiv="refresh" content="'.$delay.';url='.$url.'">';
@@ -41,7 +50,7 @@ function check_db()
     echo '</html>';
     return false;
   }
-  if( substr(sprintf('%o', fileperms(API_HOME_DIR)), -4) != '0700')
+  if(substr(sprintf('%o', fileperms(API_HOME_DIR)), -4) != '0700')
   {         // check permissions of txtDB directory
     echo '<br> Please set permissions of database directory ';
     echo '"'.API_HOME_DIR.'" to 0700 and refresh this page!<br><br>';
@@ -54,11 +63,13 @@ function check_db()
   return true;
 }
 
+// reset_db() deletes all data and removes all files from the configured
+// txtDB database. It returns true upon success of the operation.
 function reset_db()
 {
 
   if (file_exists(DB_DIR . "mydb"))
-  {       // Check if Database exists
+  {
     echo 'Deleting Database...<br>';
     $db = new Database(ROOT_DATABASE);
     $db->executeQuery("DROP DATABASE mydb");
@@ -81,11 +92,11 @@ function reset_db()
     unlink($filename);
   }
 
-  if (file_exists(DB_DIR)) {        // Check if Database exists
+  if (file_exists(DB_DIR)) {
     echo 'Deleting Database directory...<br>';
     unlink(DB_DIR);
   }
-  //create_db();
+
   return true;
 }
 
