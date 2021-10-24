@@ -37,9 +37,26 @@ git clone https://github.com/zakkak/rendezvous.git rv
 You can replace `rv` with anything else you want, and the website will be
 available in the proper path. Right now, this will be `/rv/`.
 
-Inside the newly created folder, you can now find a file named `conf.php` that
-contains important variables you should edit. These include the website title,
-as well as some additional pieces of text.
+**WARNING**: This will install the latest version of rendezvous which may be
+under development. Although it will most likely work, you may want to use a
+[release](tags). You can `cd` inside the folder and then run:
+
+```bash
+git tag -l
+```
+
+This will show you a list of versions / releases of the software that are
+available, and you can select one (e.g. the latest) by running:
+
+```bash
+git checkout v3.1.0
+```
+
+where of course `v3.1.0` is the version of rendezvous you want to install.
+
+You can now find a file named `conf.php` that contains important variables you
+should edit. These include the website title, as well as some additional pieces
+of text.
 
 Another important file is the `admins` file that is in the same directory and
 it includes a list of all e-mail addresses that if you login as you get to
