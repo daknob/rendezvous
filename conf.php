@@ -40,7 +40,7 @@
   $logo_link   = "https://www.uoc.gr";     // enter URL or leave blank for no link
 
   /* Change favicon */
-  $favicon_path = "theme/logo.ico";         // specify path to favicon
+  $favicon_path = "https://www.csd.uoc.gr/favicon.ico";  // specify path to favicon
 
   /* Set this to true to automatically send e-mail confirmations for
    * file rendezvous bookings */
