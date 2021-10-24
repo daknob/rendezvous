@@ -79,8 +79,7 @@ function check_db()
   }
 }
 
-// reset_db() deletes all data and removes all files from the configured
-// txtDB database. It exit()s if it fails to do so.
+// reset_db() deletes the database. It exit()s if it fails to do so.
 function reset_db()
 {
   if (!unlink(DB_FILE))
