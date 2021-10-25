@@ -52,7 +52,7 @@ available, and you can select one (e.g. the latest) by running:
 git checkout v3.1.0
 ```
 
-where of course `v3.1.0` is the version of rendezvous you want to install.
+where `v3.1.0` is the version of rendezvous you want to install.
 
 You can now find a file named `conf.php` that contains important variables you
 should edit. These include the website title, as well as some additional pieces
