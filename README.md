@@ -39,7 +39,7 @@ available in the proper path. Right now, this will be `/rv/`.
 
 **WARNING**: This will install the latest version of rendezvous which may be
 under development. Although it will most likely work, you may want to use a
-[release](tags). You can `cd` inside the folder and then run:
+[release](https://github.com/zakkak/rendezvous/tags). You can `cd` inside the folder and then run:
 
 ```bash
 git tag -l
