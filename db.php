@@ -88,4 +88,27 @@ function reset_db()
   }
 }
 
+// get_available_sessions() returns a list of all active and available
+// rendezvous sessions, or false if an error occurred.
+function get_available_sessions()
+{
+  $db = new SQLite3(DB_FILE, SQLITE3_OPEN_READONLY);
+
+  $statement = $db->prepare("SELECT title, deadline FROM ren_sessions WHERE active = 'Y' OR (active = 'A' AND deadline >= :timenow)");
+  $statement->bindValue(":timenow", time(), SQLITE3_INTEGER);
+  $res = $statement->execute();
+  if (!$res)
+  {
+    return false;
+  }
+
+  $sessions =  array();
+  while ($row = $res->fetchArray(SQLITE3_ASSOC) !== false)
+  {
+    array_push($sessions, $row);
+  }
+
+  return $sessions;
+}
+
 ?>
