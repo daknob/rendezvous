@@ -13,14 +13,13 @@
   /* The LDAP base DN */
   $ldap_bdn    = "dc=uoc,dc=gr";
 
-  /* The admins_file specified below contains the logins of the instructors
-   * and the teaching assistants. (syntax: one login per line)
-   * You can either create a new file (e.g. admins.txt) containing the desired
-   * logins or you can have this file point to the course's .rhosts file.
-   * (e.g. $admins_file = "home/lessons/hy120/.rhosts";)
-   */
-  //$admins_file = "../../.rhosts";
-  $admins_file = "./admins";
+  /* The admins array specified below contains the logins of the instructors
+   * and the teaching assistants. They will be able to add new exams, slots,
+   * as well as view and delete any and all data. */
+  $admins = array(
+    "admin1@dep.uni.edu",
+    "admin2@dep.uni.edu",
+  );
 
   /* This string will appear on the top of the webpage right next to the main
    * title "Rendezvous".

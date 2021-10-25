@@ -225,19 +225,8 @@ if(check_db())
         }
         if($acc_type == 'admin')        // admin verification
         {
-          $adminFileRead = file_get_contents($admins_file);
-          $adminDatabase = explode("\n", $adminFileRead);
-            
-          if ( !$adminFileRead ){
-            echo 'Could not open the file "'.$admins_file.'" that lists the administrators!<br>';
-            echo 'Please specify a valid file in the <code>'.realpath('.').'/conf.php</code> file.<br>';
-            echo 'Make sure that this file is readable and has the appropriate permissions.';
-            exit;
-          }
-
-          foreach($adminDatabase as $admin){
-            //echo $admin . " <--> " . $login . "<br/>";
-            if($admin == $login){
+          foreach($admins as $admin){
+            if($admin === $login){
               $verified = true;
               break;
             }
@@ -245,8 +234,8 @@ if(check_db())
 
           if (!$verified) // You were not found in the administrators list
           {
-            echo 'Your login "'.$login.'" was not found in the list of administrators ("'.$admins_file.'")!<br>';
-            echo 'Please check the admins_file specified by the "conf.php" file ("'.realpath('.').'/conf.php").';
+            echo 'Your login ('.$login.') was not found in the list of administrators!<br>';
+            echo 'Please check the list of admins specified in the "conf.php" file ('.realpath('.').'/conf.php).';
             exit;
           }
 
