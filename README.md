@@ -56,13 +56,9 @@ where `v3.1.0` is the version of rendezvous you want to install.
 
 You can now find a file named `conf.php` that contains important variables you
 should edit. These include the website title, as well as some additional pieces
-of text.
-
-Another important file is the `admins` file that is in the same directory and
-it includes a list of all e-mail addresses that if you login as you get to
-access the full settings of the software, e.g. to create slots, view them, etc.
-Make sure to include the correct e-mail for every person as they may have
-multiple ones, but RV only uses one of them.
+of text. Within this file there's also the `$admins` array that includes a list
+of e-mail addresses of the instance administrators that can create slots, view
+reservations, etc.
 
 You can now visit the website in which you set up the software, and proceed
 with all the needed changes there. On your first visit, the database will be
