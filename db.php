@@ -102,13 +102,96 @@ function get_available_sessions()
     return false;
   }
 
-  $sessions =  array();
+  $sessions = array();
   while ($row = $res->fetchArray(SQLITE3_ASSOC) !== false)
   {
     array_push($sessions, $row);
   }
 
   return $sessions;
+}
+
+// get_user_bookings() returns a list of all the bookings that the
+// particular user has, or false if an error occurred.
+function get_user_bookings($user)
+{
+  $db = new SQLite3(DB_FILE, SQLITE3_OPEN_READONLY);
+
+  $statement = $db->prepare("SELECT * FROM rendezvous WHERE login = :user");
+  $statement->bindValue(":user", $user, SQLITE3_TEXT);
+  $res = $statement->execute();
+  if (!$res)
+  {
+    return false;
+  }
+
+  $bookings = array();
+  while ($row = $res->fetchArray(SQLITE3_ASSOC) !== false)
+  {
+    array_push($bookings, $row);
+  }
+
+  return $bookings;
+}
+
+// get_session() returns a rendezvous session that has the particular
+// id, or false if an error occurred or the session wasn't found.
+function get_session($id)
+{
+  $db = new SQLite3(DB_FILE, SQLITE3_OPEN_READONLY);
+
+  $statement = $db->prepare("SELECT * FROM ren_sessions WHERE ren_ses_id = :id");
+  $statement->bindValue(":id", $id, SQLITE3_TEXT);
+  $res = $statement->execute();
+  if (!$res)
+  {
+    return false;
+  }
+
+  return $res->fetchArray(SQLITE3_ASSOC);
+}
+
+// get_all_sessions() returns all rendezvous sessions from the database,
+// or false if an error occurred.
+function get_all_sessions()
+{
+  $db = new SQLite3(DB_FILE, SQLITE3_OPEN_READONLY);
+
+  $res = $db->query("SELECT * FROM ren_sessions");
+  if (!$res)
+  {
+    return false;
+  }
+
+  $sessions = array();
+  while ($row = $res->fetchArray(SQLITE3_ASSOC) !== false)
+  {
+    array_push($sessions, $row);
+  }
+
+  return $sessions;
+}
+
+// raw_db_query() runs an arbitrary query in the database and returns the
+// array of all the results, or false if an error occurred. The query is
+// only allowed to read data, not to write any. Be very careful with this!
+function raw_db_query($query)
+{
+  $db = new SQLite3(DB_FILE, SQLITE3_OPEN_READONLY);
+
+  $res = $db->query($query);
+  if (!$res)
+  {
+    return false;
+  }
+
+  $rows = array();
+  while ($row = $res->fetchArray(SQLITE3_ASSOC) !== false)
+  {
+    array_push($rows, $row);
+  }
+
+  return $rows;
 }
 
 ?>
