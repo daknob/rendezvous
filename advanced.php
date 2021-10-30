@@ -7,7 +7,6 @@ include("conf.php");   // settings
 include("https_check.inc.php");  // check for https and redirect if necessary
 
 include("header.inc.php");
-include "php/show_links.php";
 
 // safe mode check
 if( ini_get('safe_mode') )
